@@ -3,7 +3,7 @@ export default {
     {
       method: "GET",
       path: "/finance-summary",
-      handler: "finance-transactions.summary",
+      handler: "finance-transaction.summary",
       config: {
         auth: { scope: ["authenticated"] },
       },
