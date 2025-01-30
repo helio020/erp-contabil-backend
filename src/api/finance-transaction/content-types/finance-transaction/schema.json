@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "finance_transactions",
+  "info": {
+    "singularName": "finance-transaction",
+    "pluralName": "finance-transactions",
+    "displayName": "finance-transaction",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "receita",
+        "despesa"
+      ]
+    },
+    "amount": {
+      "type": "decimal"
+    },
+    "transaction_status": {
+      "type": "enumeration",
+      "enum": [
+        "pendente",
+        "pago",
+        "vencido"
+      ]
+    },
+    "due_date": {
+      "type": "date"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    }
+  }
+}
