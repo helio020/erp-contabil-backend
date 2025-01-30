@@ -7,18 +7,10 @@ import { factories } from "@strapi/strapi";
 export default factories.createCoreService(
   "api::finance-transaction.finance-transaction",
   ({ strapi }) => ({
-    async find({
-      page,
-      perPage,
-      filters,
-    }: {
-      page: number;
-      perPage: number;
-      filters: any;
-    }) {
+    async find({ page, perPage }: { page: number; perPage: number }) {
       return strapi
         .query("api::finance-transaction.finance-transaction")
-        .findPage({ page, pageSize: perPage, filters });
+        .findPage({ page, pageSize: perPage });
     },
 
     async findOne(id: string) {

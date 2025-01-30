@@ -11,11 +11,7 @@ export default factories.createCoreRouter(
     only: ["find", "findOne", "create", "update", "delete"],
     except: [],
     config: {
-      find: {
-        auth: false,
-        policies: [],
-        middlewares: [],
-      },
+      find: {},
       findOne: {},
       create: {},
       update: {},

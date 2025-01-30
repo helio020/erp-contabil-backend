@@ -9,13 +9,11 @@ export default factories.createCoreController(
   ({ strapi }) => ({
     async find(ctx) {
       const { query } = ctx.request;
-      const { page, perPage, sort, filters } = query;
+      const { page, perPage } = query;
 
       return strapi.services["finance-transaction"].find({
         page,
         perPage,
-        sort,
-        filters,
       });
     },
 
