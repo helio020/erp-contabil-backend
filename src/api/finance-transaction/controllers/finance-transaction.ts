@@ -7,43 +7,6 @@ import { factories } from "@strapi/strapi";
 export default factories.createCoreController(
   "api::finance-transaction.finance-transaction",
   ({ strapi }) => ({
-    async find(ctx) {
-      const { query } = ctx.request;
-      const { page, perPage } = query;
-
-      return strapi.services["finance-transaction"].find({
-        page,
-        perPage,
-      });
-    },
-
-    async findOne(ctx) {
-      const { params } = ctx;
-      const { id } = params;
-
-      return strapi.services["finance-transaction"].findOne({ id });
-    },
-
-    async create(ctx) {
-      const { body } = ctx.request;
-
-      return strapi.services["finance-transaction"].create({ data: body });
-    },
-
-    async update(ctx) {
-      const { params, body } = ctx;
-      const { id } = params;
-
-      return strapi.services["finance-transaction"].update({ id, data: body });
-    },
-
-    async delete(ctx) {
-      const { params } = ctx;
-      const { id } = params;
-
-      return strapi.services["finance-transaction"].delete({ id });
-    },
-
     async summary(ctx) {
       const user = ctx.state.user; // Pega o usuário autenticado
 
@@ -53,7 +16,7 @@ export default factories.createCoreController(
 
       // Obtém todas as transações do usuário
       const transactions = await strapi.db
-        .query("api::finance-transactions.finance-transactions")
+        .query("api::finance-transaction.finance-transaction")
         .findMany({
           where: { user: user.id },
           select: ["type", "amount"],
@@ -77,6 +40,41 @@ export default factories.createCoreController(
         despesas: summary.despesas,
         saldo: summary.receitas - summary.despesas,
       };
+    },
+
+    async list(ctx) {
+      const user = ctx.state.user;
+
+      if (!user) {
+        return ctx.unauthorized("Usuário não autenticado");
+      }
+
+      const transactions = await strapi.services[
+        "api::finance-transaction.finance-transaction"
+      ].find({
+        user: user.id,
+      });
+
+      return transactions;
+    },
+
+    async create(ctx) {
+      const user = ctx.state.user;
+
+      if (!user) {
+        return ctx.unauthorized("Usuário não autenticado");
+      }
+
+      const data = ctx.request.body;
+
+      const transaction = await strapi.services[
+        "api::finance-transaction.finance-transaction"
+      ].create({
+        ...data,
+        user: user.id,
+      });
+
+      return transaction;
     },
   })
 );

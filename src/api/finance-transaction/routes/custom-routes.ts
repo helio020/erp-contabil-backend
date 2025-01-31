@@ -4,9 +4,19 @@ export default {
       method: "GET",
       path: "/finance-summary",
       handler: "finance-transaction.summary",
-      config: {
-        auth: { scope: ["authenticated"] },
-      },
+      config: {},
+    },
+    {
+      method: "GET",
+      path: "/list-finance-transactions",
+      handler: "finance-transaction.list",
+      config: {},
+    },
+    {
+      method: "POST",
+      path: "/create-finance-transaction",
+      handler: "finance-transaction.create",
+      config: {},
     },
   ],
 };
