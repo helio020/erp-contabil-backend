@@ -2,8 +2,8 @@ export default {
   routes: [
     {
       method: "GET",
-      path: "/category/:name",
-      handler: "category.findOne",
+      path: "/category/list-all-categories",
+      handler: "category.listAllCategories",
       config: {},
     },
   ],

@@ -76,5 +76,22 @@ export default factories.createCoreController(
 
       return transaction;
     },
+
+    async update(ctx) {
+      const user = ctx.state.user;
+
+      if (!user) {
+        return ctx.unauthorized("Usuário não autenticado");
+      }
+
+      const { id } = ctx.params;
+      const data = ctx.request.body;
+
+      const transaction = await strapi.services[
+        "api::finance-transaction.finance-transaction"
+      ].update(id, data);
+
+      return transaction;
+    },
   })
 );

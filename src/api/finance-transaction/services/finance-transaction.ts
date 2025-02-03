@@ -25,6 +25,8 @@ export default factories.createCoreService(
         .query("api::finance-transaction.finance-transaction")
         .findMany({
           where: { user: params.user },
+          populate: "*",
+          orderBy: [{ due_date: "desc" }],
         });
 
       return transactions as Transaction[];
@@ -34,6 +36,17 @@ export default factories.createCoreService(
       const transaction = await strapi.db
         .query("api::finance-transaction.finance-transaction")
         .create({
+          data,
+        });
+
+      return transaction;
+    },
+
+    async update(id, data) {
+      const transaction = await strapi.db
+        .query("api::finance-transaction.finance-transaction")
+        .update({
+          where: { id },
           data,
         });
 

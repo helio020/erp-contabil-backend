@@ -7,12 +7,14 @@ import { factories } from "@strapi/strapi";
 export default factories.createCoreService(
   "api::category.category",
   ({ strapi }) => ({
-    async findOne(name) {
-      const category = await strapi.db.query("api::category.category").findOne({
-        where: { name },
-      });
+    async listAllCategories() {
+      const categories = await strapi.db
+        .query("api::category.category")
+        .findMany({
+          orderBy: [{ name: "asc" }],
+        });
 
-      return category;
+      return categories;
     },
   })
 );

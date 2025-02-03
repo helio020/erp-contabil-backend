@@ -7,17 +7,15 @@ import { factories } from "@strapi/strapi";
 export default factories.createCoreController(
   "api::category.category",
   ({ strapi }) => ({
-    async findOne(ctx) {
-      const { name } = ctx.params;
+    async listAllCategories(ctx) {
+      const categories =
+        await strapi.services["api::category.category"].listAllCategories();
 
-      const category =
-        await strapi.services["api::category.category"].findOne(name);
-
-      if (!category) {
-        return ctx.notFound("Categoria não encontrada");
+      if (!categories) {
+        return ctx.notFound("Nenhuma categoria encontrada");
       }
 
-      return category;
+      return categories;
     },
   })
 );

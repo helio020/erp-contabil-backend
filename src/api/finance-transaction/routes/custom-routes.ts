@@ -18,5 +18,11 @@ export default {
       handler: "finance-transaction.create",
       config: {},
     },
+    {
+      method: "PUT",
+      path: "/update-finance-transaction/:id",
+      handler: "finance-transaction.update",
+      config: {},
+    },
   ],
 };
