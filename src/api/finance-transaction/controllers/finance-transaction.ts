@@ -93,5 +93,21 @@ export default factories.createCoreController(
 
       return transaction;
     },
+
+    async delete(ctx) {
+      const user = ctx.state.user;
+
+      if (!user) {
+        return ctx.unauthorized("Usuário não autenticado");
+      }
+
+      const { id } = ctx.params;
+
+      await strapi.services[
+        "api::finance-transaction.finance-transaction"
+      ].delete(id);
+
+      return { ok: true };
+    },
   })
 );

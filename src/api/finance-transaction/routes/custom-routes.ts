@@ -24,5 +24,11 @@ export default {
       handler: "finance-transaction.update",
       config: {},
     },
+    {
+      method: "DELETE",
+      path: "/delete-finance-transaction/:id",
+      handler: "finance-transaction.delete",
+      config: {},
+    },
   ],
 };

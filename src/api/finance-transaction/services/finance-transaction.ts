@@ -52,5 +52,15 @@ export default factories.createCoreService(
 
       return transaction;
     },
+
+    async delete(id) {
+      const transaction = await strapi.db
+        .query("api::finance-transaction.finance-transaction")
+        .delete({
+          where: { id },
+        });
+
+      return transaction;
+    },
   })
 );
