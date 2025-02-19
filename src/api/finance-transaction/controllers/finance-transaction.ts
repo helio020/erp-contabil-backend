@@ -19,7 +19,7 @@ export default factories.createCoreController(
         .query("api::finance-transaction.finance-transaction")
         .findMany({
           where: { user: user.id },
-          select: ["type", "amount"],
+          select: ["type", "amount", "title"],
         });
 
       // Calcula total de receitas e despesas
