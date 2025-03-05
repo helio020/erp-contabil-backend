@@ -438,6 +438,97 @@ export interface ApiFinanceTransactionFinanceTransaction
   };
 }
 
+export interface ApiInvoiceInvoice extends Struct.CollectionTypeSchema {
+  collectionName: 'invoices';
+  info: {
+    displayName: 'invoice';
+    pluralName: 'invoices';
+    singularName: 'invoice';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    cliente: Schema.Attribute.Relation<'oneToOne', 'admin::user'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    data: Schema.Attribute.Date;
+    itens: Schema.Attribute.Component<'itens.itens', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::invoice.invoice'
+    > &
+      Schema.Attribute.Private;
+    numero: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    taxes: Schema.Attribute.Relation<'oneToMany', 'api::tax.tax'>;
+    total: Schema.Attribute.Decimal;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTaxReportTaxReport extends Struct.CollectionTypeSchema {
+  collectionName: 'tax_reports';
+  info: {
+    displayName: 'tax-report';
+    pluralName: 'tax-reports';
+    singularName: 'tax-report';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::tax-report.tax-report'
+    > &
+      Schema.Attribute.Private;
+    periodo: Schema.Attribute.Date;
+    publishedAt: Schema.Attribute.DateTime;
+    totalImpostos: Schema.Attribute.Decimal;
+    totalReceitas: Schema.Attribute.Decimal;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTaxTax extends Struct.CollectionTypeSchema {
+  collectionName: 'taxes';
+  info: {
+    displayName: 'tax';
+    pluralName: 'taxes';
+    singularName: 'tax';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    aliquota: Schema.Attribute.Decimal;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    invoice: Schema.Attribute.Relation<'manyToOne', 'api::invoice.invoice'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::tax.tax'> &
+      Schema.Attribute.Private;
+    nome: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    tipo: Schema.Attribute.Enumeration<['Estadual', 'Municipal', 'Federal']>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -949,6 +1040,9 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::category.category': ApiCategoryCategory;
       'api::finance-transaction.finance-transaction': ApiFinanceTransactionFinanceTransaction;
+      'api::invoice.invoice': ApiInvoiceInvoice;
+      'api::tax-report.tax-report': ApiTaxReportTaxReport;
+      'api::tax.tax': ApiTaxTax;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

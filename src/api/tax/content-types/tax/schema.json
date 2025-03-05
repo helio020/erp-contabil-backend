@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "taxes",
+  "info": {
+    "singularName": "tax",
+    "pluralName": "taxes",
+    "displayName": "tax"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome": {
+      "type": "string"
+    },
+    "aliquota": {
+      "type": "decimal"
+    },
+    "tipo": {
+      "type": "enumeration",
+      "enum": [
+        "Estadual",
+        "Municipal",
+        "Federal"
+      ]
+    },
+    "invoice": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::invoice.invoice",
+      "inversedBy": "taxes"
+    }
+  }
+}

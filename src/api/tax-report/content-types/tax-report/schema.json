@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tax_reports",
+  "info": {
+    "singularName": "tax-report",
+    "pluralName": "tax-reports",
+    "displayName": "tax-report"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "periodo": {
+      "type": "date"
+    },
+    "totalReceitas": {
+      "type": "decimal"
+    },
+    "totalImpostos": {
+      "type": "decimal"
+    }
+  }
+}

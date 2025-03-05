@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "invoices",
+  "info": {
+    "singularName": "invoice",
+    "pluralName": "invoices",
+    "displayName": "invoice"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "numero": {
+      "type": "string"
+    },
+    "data": {
+      "type": "date"
+    },
+    "cliente": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "admin::user"
+    },
+    "itens": {
+      "displayName": "itens",
+      "type": "component",
+      "repeatable": false,
+      "component": "itens.itens"
+    },
+    "total": {
+      "type": "decimal"
+    },
+    "taxes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tax.tax",
+      "mappedBy": "invoice"
+    }
+  }
+}
